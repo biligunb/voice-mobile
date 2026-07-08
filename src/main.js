@@ -85,11 +85,14 @@ import { submitText } from './utils.js';
 
 sendBtn.addEventListener('click', () => {
   const result = submitText(editor.value);
-  setStatus(result.status);
 
-  if (result.submitted) {
-    console.log('Text submitted:', result.text);
+  if (!result.submitted) {
+    setStatus(result.status);
+    return;
   }
+
+  console.log('Text submitted:', result.text);
+  speakText(result.text);
 });
 
 speakBtn.addEventListener('click', () => speakText(editor.value.trim()));
@@ -118,9 +121,7 @@ if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
 
   recognition.onresult = (event) => {
     const phrase = event.results[0][0].transcript;
-    textInput.value = phrase;
-    transcriptOutput.textContent = `Transcript: ${phrase}`;
-    speakText(phrase);
+    editor.value = phrase;
   };
 
   recognition.onend = () => {
