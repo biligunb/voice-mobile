@@ -85,6 +85,11 @@ button:disabled {
   cursor: not-allowed;
 }
 
+#send-btn {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+}
+
 #speak-btn {
   background: linear-gradient(135deg, #3b82f6, #0ea5e9);
   color: white;
@@ -103,7 +108,7 @@ button:disabled {
 .button-row {
   display: grid;
   gap: 0.75rem;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   margin-top: 1.25rem;
 }
 

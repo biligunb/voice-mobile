@@ -10,8 +10,8 @@ app.innerHTML = `
   </header>
 
   <main class="card">
-    <label for="text-input">Enter text to speak</label>
-    <textarea id="text-input" rows="5" placeholder="Type a phrase here..."></textarea>
+    <label for="editor">Enter text</label>
+    <textarea id="editor" rows="6" placeholder="Type a phrase here..."></textarea>
 
     <label for="accent-select">Accent</label>
     <select id="accent-select">
@@ -22,8 +22,9 @@ app.innerHTML = `
     </select>
 
     <div class="button-row">
-      <button id="speak-btn">Speak Text</button>
-      <button id="record-btn" type="button">Record Audio</button>
+      <button id="send-btn" type="button">Send</button>
+      <button id="speak-btn" type="button">Speak</button>
+      <button id="record-btn" type="button">Record</button>
       <button id="stop-btn" type="button" disabled>Stop</button>
     </div>
 
@@ -34,8 +35,9 @@ app.innerHTML = `
   </main>
 `;
 
-const textInput = document.getElementById('text-input');
+const editor = document.getElementById('editor');
 const accentSelect = document.getElementById('accent-select');
+const sendBtn = document.getElementById('send-btn');
 const speakBtn = document.getElementById('speak-btn');
 const recordBtn = document.getElementById('record-btn');
 const stopBtn = document.getElementById('stop-btn');
@@ -79,7 +81,18 @@ function speakText(text) {
   speechSynthesis.speak(utterance);
 }
 
-speakBtn.addEventListener('click', () => speakText(textInput.value.trim()));
+sendBtn.addEventListener('click', () => {
+  const text = editor.value.trim();
+  if (!text) {
+    setStatus('Enter text before sending.');
+    return;
+  }
+
+  setStatus('Text submitted successfully.');
+  console.log('Text submitted:', text);
+});
+
+speakBtn.addEventListener('click', () => speakText(editor.value.trim()));
 
 let recognition;
 let isRecording = false;
