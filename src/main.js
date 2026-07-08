@@ -156,7 +156,7 @@ stopBtn.addEventListener('click', () => {
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', async () => {
     try {
-      await navigator.serviceWorker.register('/sw.js');
+      await navigator.serviceWorker.register('./sw.js');
       console.log('Service Worker registered');
     } catch (error) {
       console.warn('Service Worker registration failed:', error);
