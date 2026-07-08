@@ -81,15 +81,15 @@ function speakText(text) {
   speechSynthesis.speak(utterance);
 }
 
-sendBtn.addEventListener('click', () => {
-  const text = editor.value.trim();
-  if (!text) {
-    setStatus('Enter text before sending.');
-    return;
-  }
+import { submitText } from './utils.js';
 
-  setStatus('Text submitted successfully.');
-  console.log('Text submitted:', text);
+sendBtn.addEventListener('click', () => {
+  const result = submitText(editor.value);
+  setStatus(result.status);
+
+  if (result.submitted) {
+    console.log('Text submitted:', result.text);
+  }
 });
 
 speakBtn.addEventListener('click', () => speakText(editor.value.trim()));

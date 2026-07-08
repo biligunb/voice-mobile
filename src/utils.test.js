@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getAccentLabel } from './utils.js';
+import { getAccentLabel, submitText } from './utils.js';
 
 describe('getAccentLabel', () => {
   it('returns the correct label for supported locales', () => {
@@ -9,5 +9,23 @@ describe('getAccentLabel', () => {
 
   it('falls back to American English for unknown locale', () => {
     expect(getAccentLabel('fr-FR')).toBe('American English');
+  });
+});
+
+describe('submitText', () => {
+  it('returns an error status when text is empty', () => {
+    expect(submitText('')).toEqual({
+      status: 'Enter text before sending.',
+      submitted: false,
+      text: ''
+    });
+  });
+
+  it('returns success when text is present', () => {
+    expect(submitText('  hello world  ')).toEqual({
+      status: 'Text submitted successfully.',
+      submitted: true,
+      text: 'hello world'
+    });
   });
 });
