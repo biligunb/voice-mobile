@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getAccentLabel, submitText } from './utils.js';
+import { getAccentLabel, submitText, validateAssetPath } from './utils.js';
 
 describe('getAccentLabel', () => {
   it('returns the correct label for supported locales', () => {
@@ -27,5 +27,22 @@ describe('submitText', () => {
       submitted: true,
       text: 'hello world'
     });
+  });
+});
+
+describe('validateAssetPath', () => {
+  it('accepts relative paths starting with ./', () => {
+    expect(validateAssetPath('./sw.js')).toBe(true);
+    expect(validateAssetPath('./manifest.webmanifest')).toBe(true);
+  });
+
+  it('accepts absolute paths starting with /', () => {
+    expect(validateAssetPath('/sw.js')).toBe(true);
+  });
+
+  it('rejects invalid paths', () => {
+    expect(validateAssetPath('')).toBe(false);
+    expect(validateAssetPath(null)).toBe(false);
+    expect(validateAssetPath('sw.js')).toBe(false);
   });
 });

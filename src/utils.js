@@ -25,3 +25,8 @@ export function submitText(text) {
     text: trimmed
   };
 }
+
+export function validateAssetPath(path) {
+  if (!path) return false;
+  return path.startsWith('./') || path.startsWith('/');
+}
